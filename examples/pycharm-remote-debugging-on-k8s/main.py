@@ -15,10 +15,14 @@ app = Flask(__name__)
 
 @app.route('/debug')
 def debug():
+    logging.info(os.environ.get("REMOTE_DEBUG_HOST"))
     if os.environ.get("REMOTE_DEBUG_HOST"):
+
         host, port = os.environ.get("REMOTE_DEBUG_HOST").split(":")
+        logging.info(str(host) + " : "+ str(port))
         logging.info(f"Connecting to remote debugger on {host}:{port}")
-        pydevd_pycharm.settrace(host, port=int(port), stdoutToServer=True, stderrToServer=True, suspend=False)
+        pydevd_pycharm.settrace(host, port=int(port), stdoutToServer=True, stderrToServer=True, suspend=True)
+        logging.info("magic")
     return "connected!"
 
 

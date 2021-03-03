@@ -20,12 +20,15 @@ spec:
         app.kubernetes.io/name: pyremotedebug
     spec:
       containers:
-      - image: quay.io/omrikiei/pyremotedebug:latest
+      - image: docker.io/galic1987/tunnel7:latest
         imagePullPolicy: Always
         name: pyremotedebug
         ports:
         - containerPort: 8000
           name: http
+          protocol: TCP
+        - containerPort: 4321
+          name: debug
           protocol: TCP
         resources: {}
         terminationMessagePath: /dev/termination-log
